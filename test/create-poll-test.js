@@ -10,10 +10,10 @@ describe('the Poll', function () {
     assert(poll)
   });
 
-  it('should accept a title', function () {
+  it('should accept a question', function () {
     var poll = new Poll("DOM");
 
-    assert.equal("DOM", poll.title)
+    assert.equal("DOM", poll.question)
   });
 
   it('should have a default status of true', function () {
