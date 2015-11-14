@@ -1,2 +1,0 @@
-require('./poll');
-require('./request');
