@@ -3,6 +3,7 @@
 const http = require('http');
 var express = require('express');
 var app = express();
+const _ = require('lodash');
 
 /*
  * body-parser is a piece of express middleware that
@@ -20,9 +21,14 @@ app.use(bodyParser());
 
 app.use(express.static('public'));
 
-app.get('/', function (req, res) {
-  res.sendfile(__dirname + '/public/index.html');
-});
+app.route('/')
+   .get(function (req, res) {
+    res.sendfile(__dirname + '/public/index.html');
+   })
+   .post(function (req, res) {
+    console.log(req.body.pollQuestion);
+    console.log(req.body.pollResponse);
+   });
 
 const port = process.env.PORT || 3000;
 
@@ -30,18 +36,3 @@ const server = http.createServer(app)
   .listen(port, function () {
     console.log('Listening on port ' + port + '.');
   });
-
-app.get('/', function (req, res) {
-  var question = $('#question');
-  var response = $('#response');
-
-  res.send(question, response)
-});
-
-app.post('/', function (req, res) {
-  var pollQuestion = req.body.pollQuestion;
-  var pollResponse = req.body.pollResponse;
-
-  //console.log(`Question: ${pollQuestion}`);
-  //console.log(`Response: ${pollResponse}`)
-});

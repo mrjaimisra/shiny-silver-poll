@@ -1,10 +1,18 @@
 //CLIENT
 
-var responses         = $('#response');
-var addResponseButton = $('addResponse');
+var newResponseField =
+
+  "<div id='responseField'>" +
+  "<label for='response'>Response</label>" +
+  "<input id='response' type='text' class='validate' name='pollResponse'>" +
+  "</div>";
 
 $('#addResponse').on('click', function () {
-  $('.responses').append("<div><label for='response'>Response</label> <input id='response' type='text' class='validate' name='pollResponse'></div>");
+  $('.responses').append(newResponseField);
+});
+
+$('#removeResponse').on('click', function () {
+  $('.responses').children().last().remove();
 });
 
 //POLL
