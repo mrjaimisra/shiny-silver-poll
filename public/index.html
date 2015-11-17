@@ -1,33 +1,51 @@
 <!doctype html>
 <html>
 <head>
-    <!--Import Google Icon Font-->
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="/node_modules/materialize-css/dist/css/materialize.min.css"  media="screen,projection"/>
-
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
     <title>Shiny Silver Poll</title>
 </head>
 <body>
 
-<div class="container">
+<div class='container'>
     <h1>Shiny Silver Poll</h1>
 
     <h2>Anonymous, Accurate, Instant</h2>
 
-    <section class="poll">
-    </section>
+    <section class='poll'>
+        <form action='/' method='post'>
 
-    <script src="/jquery.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/application.js"></script>
-    <script src="/materialize.css"></script>
-    <!--Import jQuery before materialize.js-->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="js/materialize.min.js"></script>
+            <div>
+                <label for='question'>Question</label>
+                <input placeholder='Question' id='question' type='text'
+                       class='validate' name='pollQuestion'>
+            </div>
+
+            <div class='responses'>
+                <div id="responseField">
+                    <label for='response'>Response</label>
+                    <input id='response' type='text' class='validate'
+                           name='pollResponse'>
+                </div>
+            </div>
+
+            <div>
+                <button type='' class='create'>Create</button>
+            </div>
+
+        </form>
+
+
+        <div>
+            <button type='' id='addResponse'>Add Response</button>
+        </div>
+
+        <div>
+            <button type='' id='removeResponse'>Remove Response</button>
+        </div>
+
+    </section>
 </div>
+<script src='/client.js'></script>
 </body>
 </html>
