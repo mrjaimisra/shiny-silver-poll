@@ -1,4 +1,4 @@
-//CLIENT
+//CREATE POLL
 
 var newResponseField =
 
