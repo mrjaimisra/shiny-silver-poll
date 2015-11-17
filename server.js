@@ -10,6 +10,8 @@ const ejs = require('ejs');
 //SERVER CONFIG STUFF
 
 const port = process.env.PORT || 3000;
+app.locals.title = 'Shiny Silver Poll';
+app.locals.polls = {};
 
 const server = http.createServer(app)
   .listen(port, function () {
@@ -31,8 +33,11 @@ const pollForm = `
 <html>
   <head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
   </head>
   <body>
+  <div class="container">
     <h1>Question: <%= poll.pollQuestion %> </h1>
       <h2>Choose one of the following: </h2>
 
@@ -43,25 +48,31 @@ const pollForm = `
         <input type='radio'
           value='<%= poll.pollResponse[i] %>'
           name='responses'
-          class='responseChoices'>
+          class='responseChoices'
+          id='response <%= i %>'>
+        <label for='response <% i %>'>
           <%= poll.pollResponse[i] %>
+        </label>
         <br>
         <% }
       } else { %>
         <input type='radio'
           value='<%= poll.pollResponse %>'
           name='responses'
-          class='responseChoices'>
+          class='responseChoices'
+          id="response">
+        <label for='response'>
           <%= poll.pollResponse %>
+        </label>
       <% } %>
         <br>
         <button type='' class='submit'>Submit</button>
       </form>
-
+      <h3>Results:</h3>
       <div id="voteCount"></div>
-
+    </div>
   </body>
-  <script src='http://localhost:3000/socket.io/socket.io.js'></script>
+  <script src='/socket.io/socket.io.js'></script>
   <script src='/responder.js'></script>
 </html>`;
 
@@ -74,6 +85,8 @@ app.route('/')
     var poll = req.body;
     var id = crypto.randomBytes(20).toString('hex');
 
+    app.locals.polls[id] = req.body;
+
     poll.id = id;
     poll.active = true;
 
@@ -84,6 +97,8 @@ app.route('/')
     res.send(ejs.render(`<html>
   <head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
   </head>
     <body>
     <h3 id="pollId">Poll ID: <%= poll.id %></h3>
@@ -92,8 +107,9 @@ app.route('/')
                          <a href='<%= poll.adminUrl %>'>Admin Link</a>
 
                          <div class="voteCount"></div>
-                         </body>
-  <script src='http://localhost:3000/socket.io/socket.io.js'></script>
+
+    </body>
+  <script src='/socket.io/socket.io.js'></script>
   <script src='/responder.js'></script>
 </html>`, {poll: poll, id: id})
     );
@@ -120,20 +136,23 @@ app.route('/admin/:id')
       (`<html>
       <head>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
       </head>
       <body>
 
       <h1>Question: <%= poll.pollQuestion %> </h1>
       <h2>Results:</h2>
 
-      <div id="voteCount"></div>
+      <div id="voteCount">
+      </div>
 
       <form action="/admin/<%= poll.id %>" method="post">
         <button type='' class='submit'>Close Poll</button>
       </form>
 
       </body>
-        <script src='http://localhost:3000/socket.io/socket.io.js'></script>
+        <script src='/socket.io/socket.io.js'></script>
         <script src='/responder.js'></script>
       </html>`, {poll: poll, polls: polls})
     );
@@ -148,8 +167,6 @@ app.route('/admin/:id')
 
   .patch(function (req, res) {
     const poll = polls[req.params.id];
-
-
   });
 
 //WEB SOCKETS
@@ -215,4 +232,5 @@ io.on('connection', function (socket) {
   });
 });
 
-module.exports = server;
+module.exports = app;
+//module.exports = server;

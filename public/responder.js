@@ -19,20 +19,6 @@ socket.on('voteCount', function (votes) {
     } else
       $('#voteCount').append(`<div id="${key}">${key}: ${votes[key]}</div>`)
   });
-
-  var path = window.location.pathname;
-  $.ajax({
-    url: '/admin/' + path,
-    method: 'PATCH',
-    success: function () {
-      Object.keys(votes).forEach(function (key) {
-        if ($('#' + key).length) {
-          $('#' + key).text(`${key}: ${votes[key]}`);
-        } else
-          $('#voteCount').append(`<div id="${key}">${key}: ${votes[key]}</div>`)
-      });
-    }
-  });
 });
 
 function countVotes(votes) {

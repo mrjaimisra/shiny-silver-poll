@@ -2,7 +2,8 @@
 <html>
 <head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
     <title>Shiny Silver Poll</title>
 </head>
 <body>
@@ -14,13 +15,11 @@
 
     <section class='poll'>
         <form action='/' method='post'>
-
             <div>
                 <label for='question'>Question</label>
                 <input placeholder='Question' id='question' type='text'
                        class='validate' name='pollQuestion'>
             </div>
-
             <div class='responses'>
                 <div id="responseField">
                     <label for='response'>Response</label>
@@ -28,23 +27,19 @@
                            name='pollResponse'>
                 </div>
             </div>
-
             <div>
                 <button type='' class='create'>Create</button>
             </div>
-
         </form>
-
 
         <div>
             <button type='' id='addResponse'>Add Response</button>
         </div>
-
         <div>
             <button type='' id='removeResponse'>Remove Response</button>
         </div>
-
     </section>
+
 </div>
 <script src='/client.js'></script>
 </body>
