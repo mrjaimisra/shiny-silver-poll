@@ -22,3 +22,5 @@ function Poll(question) {
   this.responses  = {};
   this.status     = true;
 }
+
+module.exports = client;
