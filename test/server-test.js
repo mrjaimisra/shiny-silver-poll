@@ -90,38 +90,38 @@ describe('Server', () => {
   });
 });
 
-describe('GET /polls/:id', () => {
-  beforeEach(() => {
-    app.locals.polls.testPoll = fixtures.validPoll.id;
-  });
-
-  it('should not return 404', (done) => {
-    this.request.get('/polls/testPoll', (error, response) => {
-      if (error) { done(error); }
-      assert.notEqual(response.statusCode, 404);
-      done();
-    });
-  });
-
-  it('should return a 200', (done) => {
-    this.request.get('/polls/testPoll', (error, response) => {
-      if (error) {
-        done(error);
-      }
-      assert.equal(response.statusCode, 200);
-      done();
-    });
-  });
-});
-
-describe.skip('GET /admin/:id', () => {
-  it('should return a 200', (done) => {
-    this.request.get('/admin/:id', (error, response) => {
-      if (error) {
-        done(error);
-      }
-      assert.equal(response.statusCode, 200);
-      done();
-    });
-  });
-});
+//describe('GET /polls/:id', () => {
+//  beforeEach(() => {
+//    app.locals.polls.testPoll = fixtures.validPoll.id;
+//  });
+//
+//  it('should not return 404', (done) => {
+//    this.request.get('/polls/testPoll', (error, response) => {
+//      if (error) { done(error); }
+//      assert.notEqual(response.statusCode, 404);
+//      done();
+//    });
+//  });
+//
+//  it('should return a 200', (done) => {
+//    this.request.get('/polls/testPoll', (error, response) => {
+//      if (error) {
+//        done(error);
+//      }
+//      assert.equal(response.statusCode, 200);
+//      done();
+//    });
+//  });
+//});
+//
+//describe.skip('GET /admin/:id', () => {
+//  it('should return a 200', (done) => {
+//    this.request.get('/admin/:id', (error, response) => {
+//      if (error) {
+//        done(error);
+//      }
+//      assert.equal(response.statusCode, 200);
+//      done();
+//    });
+//  });
+//});

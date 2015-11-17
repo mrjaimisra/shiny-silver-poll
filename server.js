@@ -74,6 +74,7 @@ const pollForm = `
   </body>
   <script src='/socket.io/socket.io.js'></script>
   <script src='/responder.js'></script>
+  <script src='/client.js'></script>
 </html>`;
 
 app.route('/')
@@ -111,6 +112,8 @@ app.route('/')
     </body>
   <script src='/socket.io/socket.io.js'></script>
   <script src='/responder.js'></script>
+  <script src='/client.js'></script>
+
 </html>`, {poll: poll, id: id})
     );
   });
@@ -154,6 +157,7 @@ app.route('/admin/:id')
       </body>
         <script src='/socket.io/socket.io.js'></script>
         <script src='/responder.js'></script>
+        <script src='/client.js'></script>
       </html>`, {poll: poll, polls: polls})
     );
   })
